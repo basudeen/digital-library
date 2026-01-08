@@ -1,0 +1,9 @@
+module.exports = {
+    SUCCESS: 200,
+    CREATE: 201,
+    NOT_DATA:400,
+    UNAUTHORIZED: 401,
+    FORBIDDEN: 403,
+    NODATA: 404,
+    INNERNAL_SERVER: 500
+}
