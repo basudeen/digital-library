@@ -6,6 +6,8 @@ const { AUTHOR_CREATED, AUTHOR_UPDATED, AUTHOR_DELETED,
 const { AUTHOR_NOT_CREATED, AUTHOR_NOT_UPDATED, AUTHOR_NOT_DELETED,
     BOOK_NOT_CREATED, BOOK_NOT_UPDATED, BOOK_NOT_DELETED, NOT_FETCHED, INTERNAl_SERVER_ERROR } = require('../constants/ErrorMessage');
 const { get } = require('mongoose');
+let convertdateformat = require('../utils/common');
+
 module.exports = {
     Createauthor: async (req, res) => {
         try {
@@ -23,9 +25,9 @@ module.exports = {
             const getauthor = await auth.find({}, { __v: 0 }).lean();
             if (!getauthor) res.status(NODATA).json({ success: false, message: NOT_FETCHED });
             else {
-                getauthor[0].createdAt = dayjs(getauthor.createdAt).format("DD-MM-YYYY");
-                getauthor[0].birthDate = dayjs(getauthor[0].birthDate).format("DD-MM-YYYY");
-                getauthor[0].updatedAt = dayjs(getauthor[0].updatedAt).format("DD-MM-YYYY");
+                getauthor[0].createdAt = await convertdateformat(getauthor.createdAt);
+                getauthor[0].birthDate = await convertdateformat(getauthor[0].birthDate);
+                getauthor[0].updatedAt = await convertdateformat(getauthor[0].updatedAt);
                 res.status(SUCCESS).json({ success: true, message: FETCHED, data: getauthor })
             };
         }
