@@ -8,6 +8,7 @@ const Book = new mongoose.Schema({
     summary:{
         type : String,
         required:true,
+         maxLength:500
     },
     author:{
         type:mongoose.Schema.Types.ObjectId,
@@ -20,7 +21,7 @@ const Book = new mongoose.Schema({
     },
     genre:{
         type:String,
-        enum:['Fiction','Horror','Comdey','Drama']
+        enum:['Fiction','Horror','Comdey','Drama','Psychological horror']
     },
     publishedYear:{
         type:Number,

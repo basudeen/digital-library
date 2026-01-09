@@ -9,8 +9,8 @@ router.patch('/author/:id', Authcontroller.Updateauthor);
 router.delete('/author/:id', Authcontroller.Deleteauthor);
 
 router.post('/book', Bookcontroller.Createbook);
-// router.get('/book', Bookcontroller);
-// router.patch('/book', Bookcontroller);
-// router.delete('/book', Bookcontroller);
+router.get('/book', Bookcontroller.GetBook);
+router.patch('/book/:id', Bookcontroller.UpdateBook);
+router.delete('/book/:id', Bookcontroller.DeleteBook);
 
 module.exports = router;
