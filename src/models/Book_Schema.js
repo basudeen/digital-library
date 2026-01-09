@@ -1,4 +1,4 @@
-const mongoose = requires('mongoose');
+const mongoose = require('mongoose');
 const Book = new mongoose.Schema({
     title: {
         type: String,
@@ -20,7 +20,7 @@ const Book = new mongoose.Schema({
     },
     genre:{
         type:String,
-        enum:['Fiction,Horror,Comdey,Drama']
+        enum:['Fiction','Horror','Comdey','Drama']
     },
     publishedYear:{
         type:Number,

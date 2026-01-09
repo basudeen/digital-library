@@ -53,5 +53,17 @@ module.exports = {
         catch (error) {
             res.status(INNERNAL_SERVER).json({ success: true, message: INTERNAl_SERVER_ERROR, error: error });
         }
+    },
+    Deleteauthor: async (req, res) => {
+        try {
+            let { id } = req.params;
+            const deleteauthor = await auth.findByIdAndDelete(id);
+            if (!deleteauthor) res.status(BAD_REQUEST).json({ success: false, message: AUTHOR_NOT_DELETED });
+            else res.status(SUCCESS).json({ success: true, message: AUTHOR_DELETED });
+        }
+        catch (error) {
+            res.status(INNERNAL_SERVER).json({ success: true, message: INTERNAl_SERVER_ERROR, error: error });
+        }
     }
+
 }
