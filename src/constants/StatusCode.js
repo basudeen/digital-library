@@ -5,5 +5,5 @@ module.exports = {
     UNAUTHORIZED: 401,
     FORBIDDEN: 403,
     NODATA: 404,
-    INNERNAL_SERVER: 500
+    INTERNAL_SERVER: 500
 }

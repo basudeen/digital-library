@@ -1,12 +1,10 @@
 const auth = require('../models/Auther_Schema');
-const dayjs = require('dayjs');
-const { SUCCESS, CREATE, BAD_REQUEST, NODATA, INNERNAL_SERVER } = require('../constants/StatusCode');
-const { AUTHOR_CREATED, AUTHOR_UPDATED, AUTHOR_DELETED,
-    BOOK_CREATED, BOOK_UPDATED, BOOK_DELETED, FETCHED } = require('../constants/Message');
-const { AUTHOR_NOT_CREATED, AUTHOR_NOT_UPDATED, AUTHOR_NOT_DELETED,
-    BOOK_NOT_CREATED, BOOK_NOT_UPDATED, BOOK_NOT_DELETED, NOT_FETCHED, INTERNAl_SERVER_ERROR } = require('../constants/ErrorMessage');
-const { get } = require('mongoose');
-let convertdateformat = require('../utils/common');
+const convertdateformat = require('../utils/common');
+
+const { SUCCESS, CREATE, BAD_REQUEST, NODATA, INTERNAL_SERVER } = require('../constants/StatusCode');
+const { AUTHOR_CREATED, AUTHOR_UPDATED, AUTHOR_DELETED, FETCHED } = require('../constants/Message');
+const { AUTHOR_NOT_CREATED, AUTHOR_NOT_UPDATED, AUTHOR_NOT_DELETED,NOT_FETCHED, INTERNAl_SERVER_ERROR } = require('../constants/ErrorMessage');
+
 
 module.exports = {
     Createauthor: async (req, res) => {
@@ -17,7 +15,7 @@ module.exports = {
                 res.status(CREATE).json({ success: true, message: AUTHOR_CREATED });
         }
         catch (error) {
-            res.status(INNERNAL_SERVER).json({ success: true, message: INTERNAl_SERVER_ERROR, error: error });
+            res.status(INTERNAL_SERVER).json({ success: true, message: INTERNAl_SERVER_ERROR, error: error });
         }
     },
     Getauthor: async (req, res) => {
@@ -32,7 +30,7 @@ module.exports = {
             };
         }
         catch (error) {
-            res.status(INNERNAL_SERVER).json({ success: true, message: INTERNAl_SERVER_ERROR, error: error });
+            res.status(INTERNAL_SERVER).json({ success: true, message: INTERNAl_SERVER_ERROR, error: error });
         }
     },
     Updateauthor: async (req, res) => {
@@ -53,7 +51,7 @@ module.exports = {
             else res.status(SUCCESS).json({ success: true, message: AUTHOR_UPDATED });
         }
         catch (error) {
-            res.status(INNERNAL_SERVER).json({ success: true, message: INTERNAl_SERVER_ERROR, error: error });
+            res.status(INTERNAL_SERVER).json({ success: true, message: INTERNAl_SERVER_ERROR, error: error });
         }
     },
     Deleteauthor: async (req, res) => {
@@ -64,8 +62,7 @@ module.exports = {
             else res.status(SUCCESS).json({ success: true, message: AUTHOR_DELETED });
         }
         catch (error) {
-            res.status(INNERNAL_SERVER).json({ success: true, message: INTERNAl_SERVER_ERROR, error: error });
+            res.status(INTERNAL_SERVER).json({ success: true, message: INTERNAl_SERVER_ERROR, error: error });
         }
     }
-
 }
