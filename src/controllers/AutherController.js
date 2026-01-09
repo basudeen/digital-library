@@ -20,7 +20,7 @@ module.exports = {
     },
     Getauthor: async (req, res) => {
         try {
-            const getauthor = await auth.find({},{__v:0}).lean();
+            const getauthor = await auth.find({}, { __v: 0 }).lean();
             if (!getauthor) res.status(NODATA).json({ success: false, message: NOT_FETCHED });
             else {
                 getauthor[0].createdAt = dayjs(getauthor.createdAt).format("DD-MM-YYYY");
@@ -30,8 +30,28 @@ module.exports = {
             };
         }
         catch (error) {
-            console.log(error,"3333");
             res.status(INNERNAL_SERVER).json({ success: true, message: INTERNAl_SERVER_ERROR, error: error });
         }
     },
+    Updateauthor: async (req, res) => {
+        try {
+            let { id } = req.params;
+            let { name, bio, website, birthDate } = req.body;
+            let data = {};
+            if (name != undefined) data.name = name;
+            if (bio != undefined) data.bio = bio;
+            if (website != undefined) data.website = website;
+            if (birthDate != undefined) data.birthDate = birthDate;
+            if (Object.keys(data).length === 0)
+                return res.status(BAD_REQUEST).json({ success: false, message: AUTHOR_NOT_UPDATED });
+
+            const updateauthor = await auth.findByIdAndUpdate(id, data, { new: true });
+
+            if (!updateauthor) res.status(BAD_REQUEST).json({ success: false, message: AUTHOR_NOT_UPDATED });
+            else res.status(SUCCESS).json({ success: true, message: AUTHOR_UPDATED });
+        }
+        catch (error) {
+            res.status(INNERNAL_SERVER).json({ success: true, message: INTERNAl_SERVER_ERROR, error: error });
+        }
+    }
 }

@@ -5,7 +5,7 @@ const Bookcontroller = require('../controllers/BookController');
 
 router.post('/author', Authcontroller.Createauthor);
 router.get('/author', Authcontroller.Getauthor);
-// router.patch('/author', Authcontroller);
+router.patch('/author/:id', Authcontroller.Updateauthor);
 // router.delete('/author', Authcontroller);
 
 // router.post('/book', Bookcontroller);

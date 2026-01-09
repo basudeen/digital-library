@@ -1,0 +1,22 @@
+{
+  "name": "digital_library",
+  "version": "1.0.0",
+  "description": "author and book collection project",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/basudeen/digital-library.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/basudeen/digital-library/issues"
+  },
+  "homepage": "https://github.com/basudeen/digital-library#readme",
+  "dependencies": {
+    "dayjs": "^1.11.19"
+  }
+}
