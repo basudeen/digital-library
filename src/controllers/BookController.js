@@ -1,29 +1,25 @@
-//const dayjs = require('dayjs');
 const book = require('../models/Book_Schema');
-const { SUCCESS, CREATE, BAD_REQUEST, NODATA, INNERNAL_SERVER } = require('../constants/StatusCode');
-const { AUTHOR_CREATED, AUTHOR_UPDATED, AUTHOR_DELETED,
-    BOOK_CREATED, BOOK_UPDATED, BOOK_DELETED, FETCHED } = require('../constants/Message');
-const { AUTHOR_NOT_CREATED, AUTHOR_NOT_UPDATED, AUTHOR_NOT_DELETED,
-    BOOK_NOT_CREATED, BOOK_NOT_UPDATED, BOOK_NOT_DELETED, NOT_FETCHED, INTERNAl_SERVER_ERROR } = require('../constants/ErrorMessage');
-const dayjs = require('dayjs');
+const convertdateformat = require('../utils/common');
 
-let convertdateformat = require('../utils/common');
-const { NOT_UPDATED } = require('../../../Personal_task_manager/src/constants/Error_message');
+const { SUCCESS, CREATE, BAD_REQUEST, NODATA, INTERNAL_SERVER } = require('../constants/StatusCode');
+const { BOOK_CREATED, BOOK_UPDATED, BOOK_DELETED, FETCHED } = require('../constants/Message');
+const { BOOK_NOT_CREATED, BOOK_NOT_UPDATED, BOOK_NOT_DELETED, NOT_FETCHED, INTERNAl_SERVER_ERROR } = require('../constants/ErrorMessage');
+
 
 module.exports = {
     Createbook: async (req, res) => {
-        try {
+        // try {
             const Createbook = await book.create(req.body);
             if (!Createbook) res.status(BAD_REQUEST).json({ success: false, message: BOOK_NOT_CREATED });
             else
                 res.status(CREATE).json({ success: true, message: BOOK_CREATED });
-        }
-        catch (error) {
-            res.status(INNERNAL_SERVER).json({ success: true, message: INTERNAl_SERVER_ERROR, error: error.message });
-        }
+        // }
+        // catch (error) {
+        //     res.status(INTERNAL_SERVER).json({ success: true, message: INTERNAl_SERVER_ERROR, error: error.message });
+        // }
     },
     GetBook: async (req, res) => {
-        try {
+        // try {
             let getbook = await book.find({}, { __v: 0 }).lean();
             if (!getbook) return res.status(NODATA).json({ success: false, message: NOT_FETCHED, data: [] });
             else {
@@ -31,14 +27,14 @@ module.exports = {
                 getbook[0].updatedAt = await convertdateformat(getbook[0].updatedAt);
                 res.status(SUCCESS).json({ success: true, message: FETCHED, data: getbook });
             }
-        }
-        catch (error) {
-            console.error(error);
-            res.status(INNERNAL_SERVER).json({ success: false, message: INTERNAl_SERVER_ERROR });
-        }
+        // }
+        // catch (error) {
+        //     console.error(error);
+        //     res.status(INTERNAL_SERVER).json({ success: false, message: INTERNAl_SERVER_ERROR });
+        // }
     },
     UpdateBook: async (req, res) => {
-        try {
+        // try {
             let { id } = req.params;
             let { title, summary, author, isbn, genre, publishedYear } = req.body;
             let data = {};
@@ -51,22 +47,22 @@ module.exports = {
             const updateBook = await book.findByIdAndUpdate(id, data, { new: true });
             if (!updateBook) return res.status(BAD_REQUEST).json({ success: false, message: BOOK_NOT_UPDATED, data: [] });
             else res.status(SUCCESS).json({ success: true, message: BOOK_UPDATED, data: [] })
-        }
-        catch (error) {
-            console.error(error);
-            res.status(INNERNAL_SERVER).json({ success: false, message: INTERNAl_SERVER_ERROR });
-        }
+        // }
+        // catch (error) {
+        //     console.error(error);
+        //     res.status(INTERNAL_SERVER).json({ success: false, message: INTERNAl_SERVER_ERROR });
+        // }
     },
     DeleteBook: async (req, res) => {
-        try {
+        // try {
             let { id } = req.params;
             const removebook = await book.findByIdAndDelete(id);
             if (!removebook) return res.status(BAD_REQUEST).json({ success: false, message: BOOK_NOT_DELETED });
             else res.status(SUCCESS).json({ success: true, message: BOOK_DELETED, data: [] });
-        }
-        catch (error) {
-            console.error(error);
-            res.status(INNERNAL_SERVER).json({ success: false, message: INTERNAl_SERVER_ERROR });
-        }
+        // }
+        // catch (error) {
+        //     console.error(error);
+        //     res.status(INTERNAL_SERVER).json({ success: false, message: INTERNAl_SERVER_ERROR });
+        // }
     }
 }

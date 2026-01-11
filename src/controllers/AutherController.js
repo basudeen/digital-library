@@ -8,18 +8,18 @@ const { AUTHOR_NOT_CREATED, AUTHOR_NOT_UPDATED, AUTHOR_NOT_DELETED,NOT_FETCHED, 
 
 module.exports = {
     Createauthor: async (req, res) => {
-        try {
+        // try {
             const Createauthor = auth.create(req.body);
             if (!Createauthor) res.status(BAD_REQUEST).json({ success: false, message: AUTHOR_NOT_CREATED });
             else
                 res.status(CREATE).json({ success: true, message: AUTHOR_CREATED });
-        }
-        catch (error) {
-            res.status(INTERNAL_SERVER).json({ success: true, message: INTERNAl_SERVER_ERROR, error: error });
-        }
+        // }
+        // catch (error) {
+        //     res.status(INTERNAL_SERVER).json({ success: true, message: INTERNAl_SERVER_ERROR, error: error });
+        // }
     },
     Getauthor: async (req, res) => {
-        try {
+        // try {
             const getauthor = await auth.find({}, { __v: 0 }).lean();
             if (!getauthor) res.status(NODATA).json({ success: false, message: NOT_FETCHED });
             else {
@@ -28,13 +28,13 @@ module.exports = {
                 getauthor[0].updatedAt = await convertdateformat(getauthor[0].updatedAt);
                 res.status(SUCCESS).json({ success: true, message: FETCHED, data: getauthor })
             };
-        }
-        catch (error) {
-            res.status(INTERNAL_SERVER).json({ success: true, message: INTERNAl_SERVER_ERROR, error: error });
-        }
+        // }
+        // catch (error) {
+        //     res.status(INTERNAL_SERVER).json({ success: true, message: INTERNAl_SERVER_ERROR, error: error });
+        // }
     },
     Updateauthor: async (req, res) => {
-        try {
+        // try {
             let { id } = req.params;
             let { name, bio, website, birthDate } = req.body;
             let data = {};
@@ -49,20 +49,20 @@ module.exports = {
 
             if (!updateauthor) res.status(BAD_REQUEST).json({ success: false, message: AUTHOR_NOT_UPDATED });
             else res.status(SUCCESS).json({ success: true, message: AUTHOR_UPDATED });
-        }
-        catch (error) {
-            res.status(INTERNAL_SERVER).json({ success: true, message: INTERNAl_SERVER_ERROR, error: error });
-        }
+        // }
+        // catch (error) {
+        //     res.status(INTERNAL_SERVER).json({ success: true, message: INTERNAl_SERVER_ERROR, error: error });
+        // }
     },
     Deleteauthor: async (req, res) => {
-        try {
+        // try {
             let { id } = req.params;
             const deleteauthor = await auth.findByIdAndDelete(id);
             if (!deleteauthor) res.status(BAD_REQUEST).json({ success: false, message: AUTHOR_NOT_DELETED });
             else res.status(SUCCESS).json({ success: true, message: AUTHOR_DELETED });
-        }
-        catch (error) {
-            res.status(INTERNAL_SERVER).json({ success: true, message: INTERNAl_SERVER_ERROR, error: error });
-        }
+        // }
+        // catch (error) {
+        //     res.status(INTERNAL_SERVER).json({ success: true, message: INTERNAl_SERVER_ERROR, error: error });
+        // }
     }
 }

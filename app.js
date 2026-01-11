@@ -1,4 +1,5 @@
 const express = require('express');
+require('express-async-errors');
 const mongodb = require('./config/database');
 const routes = require('./src/routes/Mainrouter');
 require('dotenv').config();
@@ -11,4 +12,10 @@ app.listen(PORT, (err) => {
     if (err) console.log(err);
     else console.log(`server is listening on this port ${PORT}`)
 })
+
 app.use(process.env.ENDPOINT_SUFFIX, routes);
+
+app.use((error,req,res,next)=>{
+    res.status(500).json({success:false,message:error.message||"Internal Server Error"});
+    next(error);
+})
