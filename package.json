@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/basudeen/digital-library#readme",
   "dependencies": {
-    "dayjs": "^1.11.19"
+    "dayjs": "^1.11.19",
+    "express-async-errors": "^3.1.1"
   }
 }
